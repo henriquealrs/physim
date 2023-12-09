@@ -130,7 +130,7 @@ public:
 };
 
 
-
+using Point = Vec3;
 
 
 }
