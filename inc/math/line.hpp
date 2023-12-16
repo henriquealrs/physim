@@ -20,6 +20,8 @@ public:
 		origin_ (ori) 
 	{}
 
+	virtual ~Line() = default; 
+
 	static Line FromTwoPoints(const Vec3& p1, const Vec3& p2) { 
 		const auto direction = UnitVec3(p2 - p1); 
 		return Line(direction, p1);
