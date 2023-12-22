@@ -26,7 +26,7 @@ TEST(Vec3Tests, DotProd)
 	const Vec3 v1(2, 2, 2 * std::sqrt(2));
 	const Vec3 v2(-2, -2, 2 * std::sqrt(2));
 
-	EXPECT_NEAR(v1 * v2, 0, 0.01);
+    EXPECT_NEAR(v1.dot(v2), 0, 0.01);
 }
 
 TEST(Vec3Tests, SumMulInPlace)

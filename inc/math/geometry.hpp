@@ -6,7 +6,6 @@ namespace math {
 
 class Geometry
 {
-	Point position_; //  Idealy, the center of mass
 public:
 	Geometry(const Point& position) : position_(position) {}
 
@@ -14,6 +13,8 @@ public:
     virtual bool RayHit(const Ray& ray) const noexcept = 0;
 
 	virtual ~Geometry() = default;
+protected:
+    Point position_; //  Idealy, the center of mass
 };
 
 

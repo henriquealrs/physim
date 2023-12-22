@@ -62,8 +62,12 @@ public:
 			z() * s);
 	}
 	
-	double operator*(const Vec3& v) const noexcept {
-		return x()*v.x() + y()*v.y() + z()*v.z();
+    Vec3 operator*(const Vec3& v) const noexcept {
+        return Vec3(values[0] * v.values[0], values[1] * v.values[1], values[2]*v.values[2]);
+    }
+
+    double dot(const Vec3& v) const noexcept {
+        return x()*v.x() + y()*v.y() + z()*v.z();
 	}
 
 	Vec3 operator^(const Vec3& v) const noexcept {

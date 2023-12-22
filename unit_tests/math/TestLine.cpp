@@ -4,6 +4,7 @@
 
 using Vec3 = simphys::math::Vec3;
 using Line = simphys::math::Line;
+using Point = simphys::math::Point;
 using simphys::math::UnitVec3;
 
 TEST(LineTests, LineAndPoint)
@@ -17,6 +18,9 @@ TEST(LineTests, LineAndPoint)
 
 	const Line l2 = Line(UnitVec3(Vec3(1, 0, 0)), Vec3(0, 0, 0));
 	EXPECT_EQ(l2.DistanceFromPoint(Vec3(3, 2, 5)), std::sqrt(2*2 + 5*5));
+
+    Line l3(Vec3(1, 1, 0), Point(0, 0, 0));
+    EXPECT_EQ(l3.DistanceFromPoint(Point(10, 0, 0)), std::sqrt(5));
 }
 
 TEST(LineTest, TwoLines)
