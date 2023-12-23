@@ -2,7 +2,7 @@
 
 namespace simphys
 {
-namespace Sim
+namespace sim
 {
 
 using namespace math;
@@ -17,4 +17,10 @@ void Particle::Integrate(double duration) noexcept
 
 
 }
+
+math::Vec3 sim::Particle::GetPos()
+{
+    return position_;
+}
+
 }

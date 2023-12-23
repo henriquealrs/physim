@@ -5,7 +5,7 @@
 
 namespace simphys
 {
-namespace Sim
+namespace sim
 {
 
 
@@ -23,11 +23,12 @@ class Particle
 
 public:
 
-    Particle(const math::Vec3& init_pos, const math::Vec3& init_vel, double mass, double damping) :
-        position_(init_pos), velocity_(init_vel), inverse_mass_(1/mass), damping_(damping)
+    Particle(const math::Vec3& init_pos, const math::Vec3& init_vel, const math::Vec3& gravity, double mass, double damping) :
+        position_(init_pos), velocity_(init_vel), gravity_(gravity), inverse_mass_(1/mass), damping_(damping)
     {}
 
     void Integrate(double duration) noexcept;
+    math::Vec3 GetPos();
 };
 
 
