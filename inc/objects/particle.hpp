@@ -28,7 +28,9 @@ public:
     {}
 
     void Integrate(double duration) noexcept;
-    math::Vec3 GetPos();
+    math::Vec3 GetPos() const noexcept;
+    math::Vec3 GetVelocity() const noexcept;
+    void ApplyForce(math::Vec3 force) noexcept;
 };
 
 
