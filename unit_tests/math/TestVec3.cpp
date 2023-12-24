@@ -38,6 +38,9 @@ TEST(Vec3Tests, SumMulInPlace)
 
 	EXPECT_EQ(v1+=v2, 2*v2);
 
+    Vec3 v3(3, 4, -5);
+    EXPECT_EQ(v3*=3, Vec3(9, 12, -15));
+    EXPECT_EQ(v3.mag(), (Vec3(3, 4, -5)*3).mag());
 }
 
 TEST(Vec3Tests, UnitVectorConstructAndCopy)

@@ -33,20 +33,20 @@ TEST(ParticleTest, ParticleHangingOnSpring)
     double g = 10;
     double k = 2;
 
-    auto particle = simphys::sim::Particle(Vec3(0, 0, 0), Vec3(0, 0, 0), Vec3(0, 0, -g), m, 0.05);
+    auto particle = simphys::sim::Particle(Vec3(0, 0, -1), Vec3(0, 0, -0.5), Vec3(0, 0, -g), m, 0.05);
 
     double t = 0;
     while(t < totalT)
     {
         const auto pos = particle.GetPos();
 
-        const auto spring_force = Vec3(0, 0, -k * pos.z());
+        const auto spring_force = (-k) * particle.GetPos();
         particle.ApplyForce(spring_force);
         particle.ApplyForce( (-0.1) * particle.GetVelocity());
 
         particle.Integrate(dT);
         t += dT;
-//        std::cout << pos.z();
+        std::cout << pos.z() << "\n";
     }
 
     const auto pos = particle.GetPos();

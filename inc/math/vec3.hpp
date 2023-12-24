@@ -94,20 +94,23 @@ public:
 		values[0] *= scalar;
 		values[1] *= scalar;
 		values[2] *= scalar;
-		return *this;
+        UpdateMag();
+        return *this;
 	}
 
 	Vec3& operator-=(const Vec3& v) {
 		values[0] -= v.x();
 		values[1] -= v.y();
 		values[2] -= v.z();
-		return *this;
+        UpdateMag();
+        return *this;
 	}
 
 	Vec3& operator+=(const Vec3& v) {
 		values[0] += v.x();
 		values[1] += v.y();
 		values[2] += v.z();
+        UpdateMag();
 		return *this;
 	}
 
@@ -120,7 +123,14 @@ public:
 	friend std::ostream& operator<<(std::ostream& os, const simphys::math::Vec3& v) {
 		os << "(" << v.x() << ", " << v.y() << ", " << v.z() << ")";
 		return os;
-	} 
+    }
+
+private:
+    void UpdateMag()
+    {
+        mag_sqr_ = values[0]*values[0] + values[1]*values[1] + values[2]*values[2];
+        mag_ = sqrt(mag_sqr_);
+    }
 };
 
 
