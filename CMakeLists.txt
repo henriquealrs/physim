@@ -13,6 +13,9 @@ add_library(SymoPhysics ${SRC} ${HDR})
 
 target_include_directories(SymoPhysics  PUBLIC "./inc")
 
+# Exacuteble sample app
+add_subdirectory(app)
+
 # Set gtest
 include(FetchContent)
 FetchContent_Declare(
