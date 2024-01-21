@@ -3,7 +3,7 @@
 #include <GL/freeglut_std.h>
 #include "application.hpp"
 
-static Application* app;
+Application* app;
 
 /**
  * Creates a window in which to display the scene.
@@ -20,6 +20,8 @@ static void createWindow(const char* title)
 static void display()
 {
     app->display();
+    glFlush();
+    glutSwapBuffers();
 }
 
 static void update()
@@ -44,7 +46,12 @@ int main(int argc, char** argv)
     glutIdleFunc(update);
     glutReshapeFunc(reshape);
 
+    glutMouseFunc([](int button, int state, int x, int y){
+        app->mouse(button, state, x, y);
+    });
+
     app = GetApplication();
+    app->InitGraphics();
 
 
     glutMainLoop();

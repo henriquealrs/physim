@@ -1,6 +1,6 @@
 #include "application.hpp"
 #include "ogl_headers.h"
-
+#include <iostream>
 
 Application::Application()
 {
@@ -9,6 +9,9 @@ Application::Application()
 void Application::update()
 {
     glutPostRedisplay();
+    float dt = time_helper_.GetDt();
+    this->update(dt);
+    std::cout << "dt = " << dt << "\n";
 }
 
 void Application::reshape(int width, int height)
@@ -76,6 +79,7 @@ void Application::InitGraphics()
     glShadeModel(GL_SMOOTH);
 
     setView();
+    time_helper_.Init();
 }
 
 void Application::setView()

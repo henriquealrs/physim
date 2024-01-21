@@ -1,6 +1,52 @@
 #include "balisticsapp.hpp"
+#include "gravity_force_gen.hpp"
+#include "math/vec3.hpp"
 #include "ogl_headers.h"
 
+#include "objects/particle.hpp"
+
+using simphys::math::Vec3;
+using simphys::math::Point;
+using simphys::sim::Particle;
+
+namespace {
+    double gravity = 10.0; 
+}
+
+struct Projectile
+{
+    Particle particle;
+    Projectile(float mass, float gravity) : particle(Vec3(0, 1.5, 0), Vec3(0, 10, 30), mass, 0)
+    {}
+    Projectile() = delete;
+    ~Projectile() = default;
+    Projectile(const Projectile& p) = delete;
+    Projectile(Projectile&& p) = default;
+    Projectile& operator=(Projectile&& p) = default;
+    
+    Projectile& operator=(const Projectile& p) = delete;
+
+    void Render() const
+    {
+        const auto pos = particle.GetPos();
+        glColor3f(0, 0, 0);
+        glPushMatrix();
+        glTranslatef(pos.x(), pos.y(), pos.z());
+        glutSolidSphere(0.3f, 5, 4);
+
+        glColor3f(0.75, 0.75, 0.75);
+        glPushMatrix();
+        glTranslatef(pos.x(), 0, pos.z());
+        glScalef(1, 0.1, 0.1);
+        glutSolidSphere(0.6, 5, 4);
+        glPopMatrix();
+    }
+    void Update(float dt)
+    {
+        particle.Integrate(dt);
+    }
+
+};
 
 static void renderShot()
 {
@@ -18,12 +64,11 @@ static void renderShot()
 //    glPopMatrix();
 }
 
-BalisticsApp::BalisticsApp()
+BallisticsApp::BallisticsApp() : gravity_gen_(Vec3(0, -gravity, 0))
 {
-
 }
 
-void BalisticsApp::display()
+void BallisticsApp::display()
 {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glLoadIdentity();
@@ -44,21 +89,56 @@ void BalisticsApp::display()
     // Draw some scale lines
     glColor3f(0.75f, 0.75f, 0.75f);
     glBegin(GL_LINES);
+
+
     for (unsigned i = 0; i < 200; i += 10)
     {
         glVertex3f(-5.0f, 0.0f, i);
         glVertex3f(5.0f, 0.0f, i);
     }
     glEnd();
+
+    for(const auto& proj : projectiles_)
+    {
+        proj.Render();
+    }
+
+    // Render the description
+    glColor3f(0.0f, 0.0f, 0.0f);
+    this->renderText(10.0f, 34.0f, "Click: Fire\n1-4: Select Ammo", nullptr);
 }
 
-void BalisticsApp::update()
+void BallisticsApp::update(float dt)
 {
-    Application::update();
+    forces_.UpdateForces(dt);
+    for(auto& proj : projectiles_)
+    {
+        proj.Update(dt);
+    }
+}
+
+void BallisticsApp::mouse(int button, int state, int x, int y)
+{
+    if(button != GLUT_LEFT_BUTTON) return;
+
+    if(mouse_prev_state_ == GLUT_DOWN && state == GLUT_UP)
+    {
+        this->shoot();
+    }
+    mouse_prev_state_ = state;
+}
+
+void BallisticsApp::shoot()
+{
+    auto new_proj = Projectile(1, 10);
+
+    forces_.Add(new_proj.particle, gravity_gen_);
+    
+    this->projectiles_.push_back(Projectile(1, 10));
 }
 
 
-static BalisticsApp app;
+static BallisticsApp app;
 Application* GetApplication()
 {
     return &app;
