@@ -16,20 +16,21 @@ class Particle
     math::Vec3 velocity_;
     math::Vec3 acceleration_;
     math::Vec3 accumulated_forces_;
+    math::Vec3 gravity_;
 
     double damping_;
     const double inverse_mass_;
 
 public:
 
-    Particle(const math::Vec3& init_pos, const math::Vec3& init_vel, double mass, double damping) noexcept :
-        position_(init_pos), velocity_(init_vel), inverse_mass_(1/mass), damping_(damping)
+    Particle(const math::Vec3& init_pos, const math::Vec3& init_vel, double mass, double damping, const math::Vec3& gravity) noexcept :
+        position_(init_pos), velocity_(init_vel), inverse_mass_(1/mass), damping_(damping), gravity_(gravity)
     {}
     Particle() = delete;
-    Particle(const Particle& p) = delete;
-    Particle(Particle&& p) = default;
-    Particle& operator=(Particle&& p) = default;
-    Particle& operator=(const Particle& p) = delete;
+//    Particle(const Particle& p) = delete;
+//    Particle(Particle&& p) = default;
+//    Particle& operator=(Particle&& p) = default;
+//    Particle& operator=(const Particle& p) = delete;
 
     void Integrate(double duration) noexcept;
     math::Vec3 GetPos() const noexcept;

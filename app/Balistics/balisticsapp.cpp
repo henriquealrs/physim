@@ -1,5 +1,5 @@
 #include "balisticsapp.hpp"
-#include "gravity_force_gen.hpp"
+//#include "gravity_force_gen.hpp"
 #include "math/vec3.hpp"
 #include "ogl_headers.h"
 
@@ -16,13 +16,13 @@ namespace {
 struct Projectile
 {
     Particle particle;
-    Projectile(float mass, float gravity) : particle(Vec3(0, 1.5, 0), Vec3(0, 10, 30), mass, 0)
+    Projectile(float mass, float gravity) : particle(Vec3(0, 1.5, 0), Vec3(0, 10, 30), mass, 0, Vec3(0, -gravity, 0))
     {}
     Projectile() = delete;
     ~Projectile() = default;
-    Projectile(const Projectile& p) = delete;
-    Projectile(Projectile&& p) = default;
-    Projectile& operator=(Projectile&& p) = default;
+//    Projectile(const Projectile& p) = delete;
+//    Projectile(Projectile&& p) = default;
+//    Projectile& operator=(Projectile&& p) = default;
     
     Projectile& operator=(const Projectile& p) = delete;
 
@@ -110,7 +110,7 @@ void BallisticsApp::display()
 
 void BallisticsApp::update(float dt)
 {
-    forces_.UpdateForces(dt);
+//    forces_.UpdateForces(dt);
     for(auto& proj : projectiles_)
     {
         proj.Update(dt);
@@ -132,7 +132,7 @@ void BallisticsApp::shoot()
 {
     auto new_proj = Projectile(1, 10);
 
-    forces_.Add(new_proj.particle, gravity_gen_);
+//    forces_.Add(new_proj.particle, gravity_gen_);
     
     this->projectiles_.push_back(Projectile(1, 10));
 }
