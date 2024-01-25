@@ -25,9 +25,13 @@ public:
 
     Particle(const math::Vec3& init_pos, const math::Vec3& init_vel, double mass, double damping, const math::Vec3& gravity) noexcept :
         position_(init_pos), velocity_(init_vel), inverse_mass_(1/mass), damping_(damping), gravity_(gravity)
-    {}
+    {
+        std::cout << "New Particle Instance\n";
+    }
     Particle() = delete;
-//    Particle(const Particle& p) = delete;
+    Particle(const Particle& p) : Particle(p.position_, p.velocity_, 1/p.inverse_mass_, p.damping_, p.gravity_) {
+        std::cout << "New Particle Instance\n";
+    };
 //    Particle(Particle&& p) = default;
 //    Particle& operator=(Particle&& p) = default;
 //    Particle& operator=(const Particle& p) = delete;

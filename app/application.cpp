@@ -11,7 +11,7 @@ void Application::update()
     glutPostRedisplay();
     float dt = time_helper_.GetDt();
     this->update(dt);
-    std::cout << "dt = " << dt << "\n";
+//    std::cout << "dt = " << dt << "\n";
 }
 
 void Application::reshape(int width, int height)
