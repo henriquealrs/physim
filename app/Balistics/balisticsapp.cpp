@@ -21,8 +21,13 @@ struct Projectile
     Projectile() = delete;
     ~Projectile() = default;
     Projectile(const Projectile& p) = delete;
-    Projectile(Projectile&& p) = default;
-    Projectile& operator=(Projectile&& p) = default;
+    Projectile(Projectile&& p) : particle(std::move(p.particle))
+    {}
+    Projectile& operator=(Projectile&& p)
+    {
+        particle = std::move(p.particle);
+        return *this;
+    }
     
     Projectile& operator=(const Projectile& p) = delete;
 
@@ -134,7 +139,7 @@ void BallisticsApp::shoot()
 
     forces_.Add(new_proj.particle, gravity_gen_);
     
-    this->projectiles_.push_back(Projectile(1, 10));
+    this->projectiles_.push_back(std::move(new_proj));
 }
 
 
