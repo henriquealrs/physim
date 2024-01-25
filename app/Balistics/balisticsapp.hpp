@@ -34,7 +34,7 @@ private:
     void shoot();
 
     int mouse_prev_state_;
-    std::vector<Projectile> projectiles_;
+    std::vector<Projectile*> projectiles_;
     simphys::sim::ParticleForceRegistry forces_;
     simphys::sim::GravityParticleForceGen gravity_gen_;
 };

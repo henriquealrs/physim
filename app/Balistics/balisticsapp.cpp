@@ -16,7 +16,7 @@ namespace {
 struct Projectile
 {
     Particle particle;
-    Projectile(float mass, float gravity) : particle(Vec3(0, 1.5, 0), Vec3(0, 10, 30), mass, 0)
+    Projectile(float mass) : particle(Vec3(0, 1.5, 0), Vec3(0, 10, 30), mass, 0)
     {}
     Projectile() = delete;
     ~Projectile() = default;
@@ -69,8 +69,11 @@ static void renderShot()
 //    glPopMatrix();
 }
 
-BallisticsApp::BallisticsApp() : gravity_gen_(Vec3(0, -gravity, 0))
+static int n = 1;
+
+BallisticsApp::BallisticsApp() : gravity_gen_(Vec3(0, -gravity, 0)), forces_("Forces" + std::to_string(n))
 {
+    n++;
 }
 
 void BallisticsApp::display()
@@ -105,7 +108,7 @@ void BallisticsApp::display()
 
     for(const auto& proj : projectiles_)
     {
-        proj.Render();
+        proj->Render();
     }
 
     // Render the description
@@ -118,7 +121,7 @@ void BallisticsApp::update(float dt)
     forces_.UpdateForces(dt);
     for(auto& proj : projectiles_)
     {
-        proj.Update(dt);
+        proj->Update(dt);
     }
 }
 
@@ -135,11 +138,11 @@ void BallisticsApp::mouse(int button, int state, int x, int y)
 
 void BallisticsApp::shoot()
 {
-    auto new_proj = Projectile(1, 10);
+    auto new_proj = new Projectile(1);
 
-    forces_.Add(new_proj.particle, gravity_gen_);
+    forces_.Add(new_proj->particle, gravity_gen_);
     
-    this->projectiles_.push_back(std::move(new_proj));
+    this->projectiles_.push_back(new_proj);
 }
 
 

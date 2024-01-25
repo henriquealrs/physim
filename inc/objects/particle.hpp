@@ -47,12 +47,12 @@ public:
     }
     Particle& operator=(const Particle& p) = delete;
 
+    void ApplyForce(const math::Vec3& force) noexcept;
     void Integrate(double duration) noexcept;
-    math::Vec3 GetPos() const noexcept;
-    math::Vec3 GetVelocity() const noexcept;
-    void ApplyForce(math::Vec3 force) noexcept;
-    bool HasFiniteMass() const noexcept;
-    double GetMass() const noexcept;
+    [[nodiscard]] math::Vec3 GetPos() const noexcept;
+    [[nodiscard]] math::Vec3 GetVelocity() const noexcept;
+    [[nodiscard]] bool HasFiniteMass() const noexcept;
+    [[nodiscard]] double GetMass() const noexcept;
 };
 
 

@@ -19,6 +19,7 @@ public:
 
 class ParticleForceRegistry
 {
+    std::string id_;
 protected:
     struct ParticleForceRegistristration
     {
@@ -30,7 +31,8 @@ protected:
 
 
 public:
-    ParticleForceRegistry() = default;
+    ParticleForceRegistry() = delete;
+    ParticleForceRegistry(const std::string& id) : id_(id) {}
     void Add(Particle& particle, IParticleForceGen& fg);
     void Remove(Particle& particle, IParticleForceGen& fg);
     void Clear();

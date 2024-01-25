@@ -28,7 +28,7 @@ math::Vec3 Particle::GetVelocity() const noexcept
     return velocity_;
 }
 
-void Particle::ApplyForce(math::Vec3 force) noexcept
+void Particle::ApplyForce(const math::Vec3& force) noexcept
 {
     accumulated_forces_ += force;
 }
