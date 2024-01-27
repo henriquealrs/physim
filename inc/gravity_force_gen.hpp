@@ -1,9 +1,9 @@
 #ifndef __GRAVITY_FORCE_GEN_HPP
 #define __GRAVITY_FORCE_GEN_HPP
 
-#include "i_particle_force_gen.hpp"
 #include "math/vec3.hpp"
 #include "objects/particle.hpp"
+#include "i_particle_force_gen.hpp"
 
 namespace simphys {
 namespace sim {
@@ -15,10 +15,9 @@ class GravityParticleForceGen : public IParticleForceGen
 public: 
 
     GravityParticleForceGen() = delete;
-    GravityParticleForceGen(const math::Vec3& g) : gravity_(g)
-    {}
+    GravityParticleForceGen(const math::Vec3& g);
 
-    void UpdateForce(Particle& particle, double duration) override;
+    virtual void UpdateForce(Particle& particle, double duration) override;
 };
 }
 }

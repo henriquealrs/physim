@@ -10,7 +10,7 @@ TEST(ParticleTest, Integrator)
     double totalT = 5;
     double dT = 0.001;
 
-    auto particle = simphys::sim::Particle(Vec3(0, 0, 0), Vec3(0, 0, -10), 5, 0.05);
+    auto particle = simphys::sim::Particle(Vec3(0, 0, 0), Vec3(0, 0, -10), 5);
 
     double t = 0;
     while(t < totalT)
@@ -33,7 +33,7 @@ TEST(ParticleTest, ParticleHangingOnSpring)
     double g = 10;
     double k = 2;
 
-    auto particle = simphys::sim::Particle(Vec3(0, 0, -1),Vec3(0, 0, -g), m, 0.05);
+    auto particle = simphys::sim::Particle(Vec3(0, 0, -1),Vec3(0, 0, -g), m);
 
     double t = 0;
     while(t < totalT)

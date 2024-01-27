@@ -2,6 +2,7 @@
 #include "gravity_force_gen.hpp"
 #include "math/vec3.hpp"
 #include "ogl_headers.h"
+#include "drag_force_gen.hpp"
 
 #include "objects/particle.hpp"
 
@@ -16,7 +17,7 @@ namespace {
 struct Projectile
 {
     Particle particle;
-    Projectile(float mass) : particle(Vec3(0, 1.5, 0), Vec3(0, 10, 30), mass, 0)
+    Projectile(float mass) : particle(Vec3(0, 1.5, 0), Vec3(0, 10, 30), mass)
     {}
     Projectile() = delete;
     ~Projectile() = default;
@@ -139,8 +140,10 @@ void BallisticsApp::mouse(int button, int state, int x, int y)
 void BallisticsApp::shoot()
 {
     auto new_proj = new Projectile(1);
+    auto drag_gen = new simphys::sim::DragForceGen(1., 1.);
 
     forces_.Add(new_proj->particle, gravity_gen_);
+    forces_.Add(new_proj->particle, *drag_gen);
     
     this->projectiles_.push_back(new_proj);
 }

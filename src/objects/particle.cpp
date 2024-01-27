@@ -18,12 +18,12 @@ void Particle::Integrate(double duration) noexcept
     accumulated_forces_ = Vec3(0, 0, 0);
 }
 
-math::Vec3 Particle::GetPos() const noexcept
+const math::Vec3& Particle::GetPos() const noexcept
 {
     return position_;
 }
 
-math::Vec3 Particle::GetVelocity() const noexcept
+const math::Vec3& Particle::GetVelocity() const noexcept
 {
     return velocity_;
 }

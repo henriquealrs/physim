@@ -4,10 +4,8 @@
 #include <vector>
 #include "objects/particle.hpp"
 
-namespace simphys
-{
-namespace sim
-{
+namespace simphys {
+namespace sim {
 
 class IParticleForceGen
 {
