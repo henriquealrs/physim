@@ -37,6 +37,8 @@ private:
     std::vector<Projectile*> projectiles_;
     simphys::sim::ParticleForceRegistry forces_;
     simphys::sim::GravityParticleForceGen gravity_gen_;
+
+    simphys::sim::Particle on_spring_;
 };
 
 #endif // BALISTICSAPP_H

@@ -3,15 +3,20 @@
 #include "math/vec3.hpp"
 #include "ogl_headers.h"
 #include "drag_force_gen.hpp"
+#include "fixed_point_spring_force_gen.hpp"
+#include "drag_force_gen.hpp"
 
 #include "objects/particle.hpp"
 
 using simphys::math::Vec3;
 using simphys::math::Point;
 using simphys::sim::Particle;
+using simphys::sim::FixedPointSpringForceGen;
+using simphys::sim::DragForceGen;
 
 namespace {
-    double gravity = 10.0; 
+    double gravity = 10.0;
+    const auto kSpringFixedPoint = Vec3(0, 15, 10);
 }
 
 struct Projectile
@@ -72,8 +77,15 @@ static void renderShot()
 
 static int n = 1;
 
-BallisticsApp::BallisticsApp() : gravity_gen_(Vec3(0, -gravity, 0)), forces_("Forces" + std::to_string(n))
+BallisticsApp::BallisticsApp() :
+    gravity_gen_(Vec3(0, -gravity, 0)),
+    forces_("Forces" + std::to_string(n)),
+    on_spring_(Vec3(0, 10, 10), Vec3(0, 0, 0), 5)
 {
+    auto drag_gen = new simphys::sim::DragForceGen(1., 0);
+    forces_.Add(on_spring_, *(new FixedPointSpringForceGen(kSpringFixedPoint, 10, 3)));
+    forces_.Add(on_spring_, gravity_gen_);
+    forces_.Add(on_spring_, *drag_gen);
     n++;
 }
 
@@ -105,12 +117,33 @@ void BallisticsApp::display()
         glVertex3f(-5.0f, 0.0f, i);
         glVertex3f(5.0f, 0.0f, i);
     }
+    {
+        std::cout << "Spring posizion: (" << on_spring_.GetPos().x()
+                << ", " << on_spring_.GetPos().y() << ", "
+                << on_spring_.GetPos().z() << ")\n";
+        glVertex3f(on_spring_.GetPos().x(), on_spring_.GetPos().y(), on_spring_.GetPos().z());
+        glVertex3f(kSpringFixedPoint.x(), kSpringFixedPoint.y(), kSpringFixedPoint.z());
+    }
     glEnd();
 
     for(const auto& proj : projectiles_)
     {
         proj->Render();
     }
+    const auto pos = on_spring_.GetPos();
+    glColor3f(0, 0, 0);
+    glPushMatrix();
+    glTranslatef(pos.x(), pos.y(), pos.z());
+    glutSolidSphere(0.3f, 5, 4);
+
+   // glColor3f(0.75f, 0.75f, 0.75f);
+   // glBegin(GL_LINES);
+   // {
+   //     glVertex3f(on_spring_.GetPos().x(), on_spring_.GetPos().y(), on_spring_.GetPos().z());
+   //     glVertex3f(kSpringFixedPoint.x(), kSpringFixedPoint.y(), kSpringFixedPoint.z());
+   // }
+   // glEnd();
+
 
     // Render the description
     glColor3f(0.0f, 0.0f, 0.0f);
@@ -124,6 +157,7 @@ void BallisticsApp::update(float dt)
     {
         proj->Update(dt);
     }
+    on_spring_.Integrate(dt);
 }
 
 void BallisticsApp::mouse(int button, int state, int x, int y)
