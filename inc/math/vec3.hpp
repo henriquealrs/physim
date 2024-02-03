@@ -4,6 +4,7 @@
 #include <cmath>
 #include <functional>
 #include <iostream>
+#include <cstring>
 
 namespace simphys
 {
@@ -12,10 +13,11 @@ namespace math
 
 class Vec3 
 {
-	double values[3];
 	double mag_ {0};
 	double mag_sqr_{0};
-	static constexpr double MAX_ERR = 0.01;
+    static constexpr double MAX_ERR = 0.01;
+protected:
+    double values[4];
 
 public:
 	Vec3() noexcept : Vec3 (0, 0, 0) {}
@@ -142,7 +144,10 @@ class UnitVec3 : public Vec3
 public:
 	UnitVec3() = delete;
 	UnitVec3(const Vec3& v) : Vec3(v.x()/v.mag(), v.y()/v.mag(), v.z()/v.mag()) {
-	}
+        if(v.mag_sqr() == 0) {
+            std::memset(values, 0, sizeof (values));
+        }
+    }
 };
 
 

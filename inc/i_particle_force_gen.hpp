@@ -11,6 +11,7 @@ class IParticleForceGen
 {
 public:
     IParticleForceGen() = default;
+    ~IParticleForceGen() = default;
 
     virtual void UpdateForce(Particle& particle, double duration) = 0;
 };
