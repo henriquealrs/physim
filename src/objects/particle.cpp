@@ -28,6 +28,11 @@ const math::Vec3& Particle::GetVelocity() const noexcept
     return velocity_;
 }
 
+void Particle::SetVelocity(const math::Vec3 &new_vel) noexcept
+{
+    velocity_ = new_vel;
+}
+
 void Particle::ApplyForce(const math::Vec3& force) noexcept
 {
     accumulated_forces_ += force;
@@ -40,6 +45,11 @@ bool Particle::HasFiniteMass() const noexcept
 double Particle::GetMass() const noexcept
 {
     return ((double)1.0)/inverse_mass_;
+}
+
+double Particle::GetInverseMass() const noexcept
+{
+    return inverse_mass_;
 }
 
 }

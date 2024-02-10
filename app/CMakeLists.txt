@@ -16,5 +16,5 @@ foreach(App ${AppList})
     target_include_directories(${App} PRIVATE "./${App}")
     target_link_libraries(${App} GL GLU glut)
 
-endforeach(Appp ${AppList})
+endforeach()
 

@@ -7,8 +7,6 @@ namespace simphys
 {
 namespace sim
 {
-
-
 class Particle
 {
 
@@ -19,8 +17,8 @@ class Particle
 
     double inverse_mass_;
 
-public:
 
+public:
     Particle(const math::Vec3& init_pos, const math::Vec3& init_vel, double mass) noexcept :
         position_(init_pos), velocity_(init_vel), inverse_mass_(1/mass)
     {
@@ -50,6 +48,10 @@ public:
     [[nodiscard]] const math::Vec3& GetVelocity() const noexcept;
     [[nodiscard]] bool HasFiniteMass() const noexcept;
     [[nodiscard]] double GetMass() const noexcept;
+    [[nodiscard]] double GetInverseMass() const noexcept;
+
+    // TODO: find a way to make this not public but accessible by ParticleContact class
+    void SetVelocity(const math::Vec3& new_vel) noexcept;
 };
 
 
