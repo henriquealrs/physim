@@ -11,10 +11,10 @@ void ParticleContact::Resolve(double duration) noexcept
 
 double ParticleContact::CalculateSeparatingVelocity() const noexcept
 {
-    auto relative_vel = particles_[0]->GetVelocity();
-    if(particles_[1] != nullptr) {
-        relative_vel -= particles_[1]->GetVelocity();
-    }
+    const auto relative_vel = particles_[0]->GetVelocity() -
+            ((particles_[1] == nullptr)?
+                Vec3(0, 0, 0) :
+                particles_[1]->GetVelocity());
     return relative_vel.dot(normal_);
 }
 
@@ -33,7 +33,7 @@ void ParticleContact::ResolveVelocity(double duration) noexcept
         return;
     }
 
-    double impulse = delta_vel / total_inverse_mass;
+    const double impulse = delta_vel / total_inverse_mass;
     Vec3 impulse_per_i_mass = normal_ * impulse;
     particles_[0]->SetVelocity(particles_[0]->GetVelocity() + impulse_per_i_mass * particles_[0]->GetInverseMass());
 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by QtCreator 6.0.2, 2024-01-20T13:01:16. -->
+<!-- Written by QtCreator 6.0.2, 2024-02-11T06:27:42. -->
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
@@ -81,6 +81,21 @@
     <value type="Qt::CheckState" key="1@/home/hlustosa/SimPhysics/unit_tests/math/TestVec3.cpp:SumMulInPlace">Checked</value>
     <value type="Qt::CheckState" key="1@/home/hlustosa/SimPhysics/unit_tests/math/TestVec3.cpp:UnitVectorConstructAndCopy">Checked</value>
     <value type="Qt::CheckState" key="1@/home/hlustosa/SimPhysics/unit_tests/math/TestVec3.cpp:Vec3Tests">Checked</value>
+    <value type="Qt::CheckState" key="1@/home/hlustosa/workspace/physim/unit_tests/math/TestLine.cpp:LineAndPoint">Checked</value>
+    <value type="Qt::CheckState" key="1@/home/hlustosa/workspace/physim/unit_tests/math/TestLine.cpp:LineTest">Checked</value>
+    <value type="Qt::CheckState" key="1@/home/hlustosa/workspace/physim/unit_tests/math/TestLine.cpp:LineTests">Checked</value>
+    <value type="Qt::CheckState" key="1@/home/hlustosa/workspace/physim/unit_tests/math/TestLine.cpp:TwoLines">Checked</value>
+    <value type="Qt::CheckState" key="1@/home/hlustosa/workspace/physim/unit_tests/math/TestParticle.cpp:Integrator">Checked</value>
+    <value type="Qt::CheckState" key="1@/home/hlustosa/workspace/physim/unit_tests/math/TestParticle.cpp:ParticleHangingOnSpring">Checked</value>
+    <value type="Qt::CheckState" key="1@/home/hlustosa/workspace/physim/unit_tests/math/TestParticle.cpp:ParticleTest">Checked</value>
+    <value type="Qt::CheckState" key="1@/home/hlustosa/workspace/physim/unit_tests/math/TestVec3.cpp:CrossProd">Checked</value>
+    <value type="Qt::CheckState" key="1@/home/hlustosa/workspace/physim/unit_tests/math/TestVec3.cpp:DotProd">Checked</value>
+    <value type="Qt::CheckState" key="1@/home/hlustosa/workspace/physim/unit_tests/math/TestVec3.cpp:Mul">Checked</value>
+    <value type="Qt::CheckState" key="1@/home/hlustosa/workspace/physim/unit_tests/math/TestVec3.cpp:SumMulInPlace">Checked</value>
+    <value type="Qt::CheckState" key="1@/home/hlustosa/workspace/physim/unit_tests/math/TestVec3.cpp:UnitVectorConstructAndCopy">Checked</value>
+    <value type="Qt::CheckState" key="1@/home/hlustosa/workspace/physim/unit_tests/math/TestVec3.cpp:Vec3Tests">Checked</value>
+    <value type="Qt::CheckState" key="1@/home/hlustosa/workspace/physim/unit_tests/sim/test_ParticleContact.cpp:ParticleContact">Checked</value>
+    <value type="Qt::CheckState" key="1@/home/hlustosa/workspace/physim/unit_tests/sim/test_ParticleContact.cpp:TestColision">Checked</value>
    </valuemap>
    <value type="int" key="AutoTest.RunAfterBuild">0</value>
    <value type="bool" key="AutoTest.UseGlobal">true</value>

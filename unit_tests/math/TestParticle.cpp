@@ -46,7 +46,6 @@ TEST(ParticleTest, ParticleHangingOnSpring)
 
         particle.Integrate(dT);
         t += dT;
-        std::cout << pos.z() << "\n";
     }
 
     const auto pos = particle.GetPos();
