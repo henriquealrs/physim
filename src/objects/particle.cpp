@@ -33,6 +33,11 @@ void Particle::SetVelocity(const math::Vec3 &new_vel) noexcept
     velocity_ = new_vel;
 }
 
+void Particle::IncrementPosition(const math::Vec3 &dp) noexcept
+{
+    position_ += dp;
+}
+
 void Particle::ApplyForce(const math::Vec3& force) noexcept
 {
     accumulated_forces_ += force;

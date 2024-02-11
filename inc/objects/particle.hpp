@@ -3,10 +3,9 @@
 
 #include "math/vec3.hpp"
 
-namespace simphys
-{
-namespace sim
-{
+namespace simphys {
+namespace sim {
+
 class Particle
 {
 
@@ -16,7 +15,6 @@ class Particle
     math::Vec3 accumulated_forces_;
 
     double inverse_mass_;
-
 
 public:
     Particle(const math::Vec3& init_pos, const math::Vec3& init_vel, double mass) noexcept :
@@ -52,6 +50,7 @@ public:
 
     // TODO: find a way to make this not public but accessible by ParticleContact class
     void SetVelocity(const math::Vec3& new_vel) noexcept;
+    void IncrementPosition(const math::Vec3& dp) noexcept;
 };
 
 

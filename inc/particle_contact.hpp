@@ -13,6 +13,7 @@ public:
     Particle *particles_[2]; // TODO: Modernize - change to fixed array of optionals
     const double restiturion_;
     const math::UnitVec3 normal_;
+    const double penetration;
 
     void Resolve(double duration) noexcept;
 
@@ -21,6 +22,7 @@ protected:
 
 private:
     void ResolveVelocity(double duration) noexcept;
+    void ResolveInterpenetration(double duration) noexcept;
 
 public:
     ParticleContact() = delete;

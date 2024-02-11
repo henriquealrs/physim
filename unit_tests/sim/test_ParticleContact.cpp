@@ -44,3 +44,5 @@ TEST(ParticleContact, TestElasticColision)
     EXPECT_EQ(p1.GetVelocity(), expected_vel_p1);
     EXPECT_EQ(p2.GetVelocity(), expected_vel_p2);
 }
+
+// TODO: more tests to the other coordinates
