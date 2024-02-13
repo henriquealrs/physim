@@ -13,6 +13,8 @@ add_library(SymoPhysics ${SRC} ${HDR})
 
 target_include_directories(SymoPhysics  PUBLIC "./inc")
 
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17")
+
 # Exacuteble sample app
 add_subdirectory(app)
 

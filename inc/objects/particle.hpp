@@ -47,6 +47,7 @@ public:
     [[nodiscard]] bool HasFiniteMass() const noexcept;
     [[nodiscard]] double GetMass() const noexcept;
     [[nodiscard]] double GetInverseMass() const noexcept;
+    [[nodiscard]] const math::Vec3& GetAceleration() const noexcept;
 
     // TODO: find a way to make this not public but accessible by ParticleContact class
     void SetVelocity(const math::Vec3& new_vel) noexcept;

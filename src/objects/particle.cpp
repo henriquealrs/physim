@@ -57,5 +57,10 @@ double Particle::GetInverseMass() const noexcept
     return inverse_mass_;
 }
 
+const Vec3& Particle::GetAceleration() const noexcept
+{
+    return acceleration_;
+}
+
 }
 }
