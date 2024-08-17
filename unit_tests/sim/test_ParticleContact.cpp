@@ -16,8 +16,9 @@ TEST(ParticleContact, TestInelasticColision)
     const auto  v2 = Vec3(0, 0, 0);
     const double m2 = 10;
     auto p2 = Particle(null_vec, v2, m2);
-
-    auto collision = ParticleContact{{&p1, &p2}, 0, Vec3(-1, 0, 0)};
+    
+    Particle *ps[2] = {&p1, &p2};
+    auto collision = ParticleContact(ps, 0, Vec3(-1, 0, 0), 0.01);
     collision.Resolve(0.1);
 
     const auto expected_vel = (m1 / (m1+m2))*v1;
@@ -36,7 +37,8 @@ TEST(ParticleContact, TestElasticColision)
     const double m2 = 10;
     auto p2 = Particle(null_vec, v2, m2);
 
-    auto collision = ParticleContact{{&p1, &p2}, 1, Vec3(-1, 0, 0)};
+    Particle *ps[2] = {&p1, &p2};
+    auto collision = ParticleContact{ps, 1, Vec3(-1, 0, 0), 0.01};
     collision.Resolve(0.1);
 
     const auto expected_vel_p1 = ((m1 - m2) / (m1 + m2)) * v1 + (2 * m2 / (m1 + m2)) * v2;

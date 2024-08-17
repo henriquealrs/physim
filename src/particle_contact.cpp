@@ -61,14 +61,14 @@ void ParticleContact::ResolveVelocity(double duration) noexcept
 
 void ParticleContact::ResolveInterpenetration(double duration) noexcept
 {
-    if(this->penetration < 0) {
+    if(this->penetration_ < 0) {
         return;
     }
 
     const double total_inverse_mass = particles_[0]->GetInverseMass() +
             ((particles_[1] == nullptr)? 0 : particles_[1]->GetInverseMass());
 
-    Vec3 move_per_i_mass = normal_ * (-penetration / total_inverse_mass);
+    Vec3 move_per_i_mass = normal_ * (-penetration_ / total_inverse_mass);
     particles_[0]->IncrementPosition(move_per_i_mass * particles_[0]->GetInverseMass());
     if(particles_[1] != nullptr) {
         particles_[1]->IncrementPosition(move_per_i_mass * particles_[1]->GetInverseMass());

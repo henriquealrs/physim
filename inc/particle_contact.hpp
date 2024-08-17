@@ -14,7 +14,10 @@ public:
     Particle *particles_[2]; // TODO: Modernize - change to fixed array of optionals
     const double restitution_;
     const math::UnitVec3 normal_;
-    const double penetration;
+    const double penetration_;
+    ParticleContact(Particle *p[2], const double restitution, const math::UnitVec3& normal, const double penetration) :
+        particles_{p[0], p[1]}, restitution_(restitution), normal_(normal), penetration_(penetration)
+    {}
 
     void Resolve(double duration) noexcept;
     double CalculateSeparatingVelocity() const noexcept;

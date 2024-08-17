@@ -1,4 +1,6 @@
 #include "particle_link.hpp"
+#include "particle_contact.hpp"
+#include <memory>
 
 using namespace simphys::sim;
 
@@ -17,12 +19,10 @@ ParticleContactVector::size_type ParticleCable::FillContact(ParticleContactVecto
         return 0;
     }
 
-    Particle& p0 = *particles_[0];
-    Particle& p1 = *particles_[1];
-
-    math::UnitVec3 normal(p1.GetPos() - p0.GetPos());
+    const math::UnitVec3 normal(particles_[1]->GetPos() - particles_[0]->GetPos());
+    Particle *parts[2] = {particles_[0], particles_[1]};
     contacts.push_back(
-                ParticleContact{{&p0, &p1}, restitution_, normal, 0.0}
+                std::make_unique<ParticleContact>(parts, restitution_, normal, 0.0)
               );
     return 1;
 }

@@ -3,11 +3,12 @@
 
 #include "particle_contact.hpp"
 #include <vector>
+#include <memory>
 
 namespace simphys {
 namespace sim {
 
-using ParticleContactVector = std::vector<ParticleContact>;
+using ParticleContactVector = std::vector<std::unique_ptr<ParticleContact>>;
 
 class ParticleLink
 {
