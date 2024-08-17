@@ -2,13 +2,14 @@
 #include "gravity_force_gen.hpp"
 #include "math/vec3.hpp"
 #include "ogl_headers.h"
-#include "drag_force_gen.hpp"
+#include "pp_spring_force_gen.hpp"
 
 #include "objects/particle.hpp"
 
 using simphys::math::Vec3;
 using simphys::math::Point;
 using simphys::sim::Particle;
+using simphys::sim::PPSpringForceGen;
 
 namespace {
     double gravity = 10.0; 
@@ -17,12 +18,18 @@ namespace {
 struct Projectile
 {
     Particle particle;
-    Projectile(float mass) : particle(Vec3(0, 1.5, 0), Vec3(0, 10, 30), mass)
+    Particle attached;
+
+    Projectile(float mass) :
+        particle(Vec3(0, 1.5, 0), Vec3(20, 30, 20), mass),
+        attached(Vec3(0, 0, 0), Vec3(0,0,0), mass/2)
     {}
     Projectile() = delete;
     ~Projectile() = default;
     Projectile(const Projectile& p) = delete;
-    Projectile(Projectile&& p) : particle(std::move(p.particle))
+    Projectile(Projectile&& p) :
+        particle(std::move(p.particle)),
+        attached(std::move(p.attached))
     {}
     Projectile& operator=(Projectile&& p)
     {
@@ -34,11 +41,12 @@ struct Projectile
 
     void Render() const
     {
-        const auto pos = particle.GetPos();
+        // Main particle
+        const auto& pos = particle.GetPos();
         glColor3f(0, 0, 0);
         glPushMatrix();
         glTranslatef(pos.x(), pos.y(), pos.z());
-        glutSolidSphere(0.3f, 5, 4);
+        glutSolidSphere(0.6f, 5, 4);
 
         glColor3f(0.75, 0.75, 0.75);
         glPushMatrix();
@@ -46,10 +54,33 @@ struct Projectile
         glScalef(1, 0.1, 0.1);
         glutSolidSphere(0.6, 5, 4);
         glPopMatrix();
+
+        // Attached particle
+        const auto& att_pos = attached.GetPos();
+        glColor3f(0, 0, 0);
+        glPushMatrix();
+        glTranslatef(att_pos.x(), att_pos.y(), att_pos.z());
+        glutSolidSphere(0.3f, 5, 4);
+
+        glColor3f(0.75, 0.75, 0.75);
+        glPushMatrix();
+        glTranslatef(att_pos.x(), 0, att_pos.z());
+        glScalef(1, 0.1, 0.1);
+        glutSolidSphere(0.6, 5, 4);
+        glPopMatrix();
+
+        // draw line representing string
+        glColor3f(0.75f, 0.75f, 0.75f);
+        glBegin(GL_LINES);
+            glVertex3f(pos.x(), pos.y(), pos.z());
+            glVertex3f(att_pos.x(), att_pos.y(), att_pos.z());
+        glEnd();
+
     }
     void Update(float dt)
     {
         particle.Integrate(dt);
+        attached.Integrate(dt);
     }
 
 };
@@ -139,12 +170,13 @@ void BallisticsApp::mouse(int button, int state, int x, int y)
 
 void BallisticsApp::shoot()
 {
-    auto new_proj = new Projectile(1);
-    auto drag_gen = new simphys::sim::DragForceGen(1., 1.);
+    auto new_proj = new Projectile(5);
+    auto spring = new PPSpringForceGen(new_proj->particle, 5, 2);
 
     forces_.Add(new_proj->particle, gravity_gen_);
-    forces_.Add(new_proj->particle, *drag_gen);
-    
+    forces_.Add(new_proj->attached, *spring);
+    forces_.Add(new_proj->attached, gravity_gen_);
+
     this->projectiles_.push_back(new_proj);
 }
 

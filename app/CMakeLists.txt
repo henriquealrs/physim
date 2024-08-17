@@ -1,4 +1,5 @@
 set(AppList "Balistics")
+list(APPEND AppList "BalisticsWithSprings")
 
 file(GLOB GENERIC_APP_SRC "./*.cpp")
 file(GLOB GENERIC_APP_HDR "./*.hpp")
