@@ -1,4 +1,5 @@
 #include "objects/particle.hpp"
+#include "math/vec3.hpp"
 
 namespace simphys
 {
@@ -9,7 +10,8 @@ using namespace math;
 
 void Particle::Integrate(double duration) noexcept
 {
-    acceleration_ = inverse_mass_ * accumulated_forces_;
+    accumulated_forces_ += (-damping_) * UnitVec3(velocity_); 
+    acceleration_ = inverse_mass_ * accumulated_forces_ ;
     position_ += duration * velocity_ +
                 0.5 * duration * duration * acceleration_;
     velocity_ += duration * acceleration_;

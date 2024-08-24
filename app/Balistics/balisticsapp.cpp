@@ -1,5 +1,6 @@
 #include "balisticsapp.hpp"
 #include "gravity_force_gen.hpp"
+#include "i_particle_force_gen.hpp"
 #include "math/vec3.hpp"
 #include "ogl_headers.h"
 #include "drag_force_gen.hpp"
@@ -17,18 +18,13 @@ namespace {
 struct Projectile
 {
     Particle particle;
-    Projectile(float mass) : particle(Vec3(0, 1.5, 0), Vec3(0, 10, 30), mass)
+    Projectile(float mass) : particle(Vec3(0, 1.5, 0), Vec3(0, 10, 30), mass, 0 )
     {}
     Projectile() = delete;
     ~Projectile() = default;
-    Projectile(const Projectile& p) = delete;
-    Projectile(Projectile&& p) : particle(std::move(p.particle))
-    {}
-    Projectile& operator=(Projectile&& p)
-    {
-        particle = std::move(p.particle);
-        return *this;
-    }
+//    Projectile(const Projectile& p) = delete;
+//    Projectile(Projectile&& p) = default;
+//    Projectile& operator=(Projectile&& p) = default;
     
     Projectile& operator=(const Projectile& p) = delete;
 
@@ -54,27 +50,9 @@ struct Projectile
 
 };
 
-static void renderShot()
+
+BallisticsApp::BallisticsApp() : gravity_gen_(Vec3(0, -gravity, 0)), forces_("AppForces")
 {
-//    glColor3f(0, 0, 0);
-//    glPushMatrix();
-//    glTranslatef(position.x, position.y, position.z);
-//    glutSolidSphere(0.3f, 5, 4);
-//    glPopMatrix();
-
-//    glColor3f(0.75, 0.75, 0.75);
-//    glPushMatrix();
-//    glTranslatef(position.x, 0, position.z);
-//    glScalef(1.0f, 0.1f, 1.0f);
-//    glutSolidSphere(0.6f, 5, 4);
-//    glPopMatrix();
-}
-
-static int n = 1;
-
-BallisticsApp::BallisticsApp() : gravity_gen_(Vec3(0, -gravity, 0)), forces_("Forces" + std::to_string(n))
-{
-    n++;
 }
 
 void BallisticsApp::display()
@@ -119,7 +97,7 @@ void BallisticsApp::display()
 
 void BallisticsApp::update(float dt)
 {
-    forces_.UpdateForces(dt);
+   forces_.UpdateForces(dt);
     for(auto& proj : projectiles_)
     {
         proj->Update(dt);
@@ -139,7 +117,7 @@ void BallisticsApp::mouse(int button, int state, int x, int y)
 
 void BallisticsApp::shoot()
 {
-    auto new_proj = new Projectile(1);
+    auto new_proj = new Projectile(1.f);
     auto drag_gen = new simphys::sim::DragForceGen(1., 1.);
 
     forces_.Add(new_proj->particle, gravity_gen_);

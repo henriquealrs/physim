@@ -21,8 +21,8 @@ struct Projectile
     Particle attached;
 
     Projectile(float mass) :
-        particle(Vec3(0, 1.5, 0), Vec3(20, 30, 20), mass),
-        attached(Vec3(0, 0, 0), Vec3(0,0,0), mass/2)
+        particle(Vec3(0, 1.5, 0), Vec3(20, 30, 20), mass, 0.01),
+        attached(Vec3(0, 0, 0), Vec3(0,0,0), mass/2, 0.01)
     {}
     Projectile() = delete;
     ~Projectile() = default;
