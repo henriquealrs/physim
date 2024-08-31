@@ -7,7 +7,7 @@ namespace simphys {
 namespace sim {
 
 
-class PPSpringForceGen : IParticleForceGen
+class PPSpringForceGen : public IParticleForceGen
 {
     Particle& anchor_;
     double k_;
