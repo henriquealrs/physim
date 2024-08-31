@@ -39,6 +39,7 @@
 **/*.cbp
 **/CMakeScripts
 **/compile_commands.json
+**/CMakeLists.txt.user
 
 include/divisible/*
 
