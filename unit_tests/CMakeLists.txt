@@ -1,6 +1,8 @@
 message("INCLUDE TESTS")
 
 file(GLOB_RECURSE TEST_SRC ./*.cpp )
+# Explicitly include new sphere collision tests
+list(APPEND TEST_SRC math/TestSphereCollision.cpp)
 
 message("======= TEST ======")
 message("Source: ${SRC}")
