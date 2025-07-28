@@ -19,8 +19,12 @@ TEST(LineTests, LineAndPoint)
 	const Line l2 = Line(UnitVec3(Vec3(1, 0, 0)), Vec3(0, 0, 0));
 	EXPECT_EQ(l2.DistanceFromPoint(Vec3(3, 2, 5)), std::sqrt(2*2 + 5*5));
 
-    Line l3(Vec3(1, 1, 0), Point(0, 0, 0));
-    EXPECT_EQ(l3.DistanceFromPoint(Point(10, 0, 0)), std::sqrt(5));
+    Vec3 O3(1, 1, 0);
+    auto P3 = Point(10, 0, 0);
+    Line l3(O3, Point(0, 0, 0));
+    auto expect_d = P3.mag() / O3.mag();
+
+    EXPECT_EQ(l3.DistanceFromPoint(P3), expect_d);
 }
 
 TEST(LineTest, TwoLines)
