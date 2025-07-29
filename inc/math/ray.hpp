@@ -1,3 +1,7 @@
+#ifndef PHYSIM_INC_MATH_RAY_HPP
+#define PHYSIM_INC_MATH_RAY_HPP
+
+
 #include "line.hpp"
 
 namespace simphys
@@ -14,3 +18,6 @@ public:
 
 }  // math
 }  // simphys
+
+
+#endif  // PHYSIM_INC_MATH_RAY_HPP

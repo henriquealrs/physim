@@ -1,5 +1,6 @@
 #ifndef __PHYSIM_MATH_VEC3__
 #define __PHYSIM_MATH_VEC3__
+
 #include <cstdlib>
 #include <cmath>
 #include <functional>

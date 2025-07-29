@@ -1,3 +1,7 @@
+#ifndef SIMPHYS_INC_MATH_LINE_HPP
+#define SIMPHYS_INC_MATH_LINE_HPP
+
+
 #include "math/vec3.hpp"
 
 #include <cmath>
@@ -44,3 +48,4 @@ public:
 }
 }
 
+#endif  // SIMPHYS_INC_MATH_LINE_HPP
