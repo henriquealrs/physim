@@ -1,3 +1,6 @@
+#ifndef SIMPHYS_INC_MATH_GEOMETRY_HPP
+#define SIMPHYS_INC_MATH_GEOMETRY_HPP
+
 #include "vec3.hpp"
 #include "ray.hpp"
 
@@ -23,3 +26,5 @@ protected:
 
 }
 }
+
+#endif  // SIMPHYS_INC_MATH_GEOMETRY_HPP

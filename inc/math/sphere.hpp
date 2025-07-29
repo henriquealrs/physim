@@ -1,3 +1,6 @@
+#ifndef PHYSIM_INC_MATH_SPHERE_HPP
+#define PHYSIM_INC_MATH_SPHERE_HPP
+
 #include "geometry.hpp"
 
 namespace simphys {
@@ -19,3 +22,6 @@ public:
 
 }
 }
+
+
+#endif  // PHYSIM_INC_MATH_SPHERE_HPP
